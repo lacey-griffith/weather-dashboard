@@ -1,0 +1,37 @@
+
+header {
+    font-size: 45px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.city-button {
+    width: 100%;
+    text-align: left;
+    margin: 0;
+}
+.city-container {
+    padding: 0 2px 5px 0;
+}
+
+.info-display {
+    margin: 0 0 5px 16px;
+    font-size: larger;
+}
+.forecast-container {
+    background-color: lightskyblue;
+    justify-content: center;
+    height: 200px;
+    border-radius: 10px;
+    margin: 10px 3px 0 3px;
+    border: 1px solid darkblue;
+}
+.forecast-header {
+    font-size: 16px;
+    margin: 4px 0 8px 0;
+}
+.forecast-info {
+    font-size: 13px;
+    text-align: center;
+    margin: 2px 0 0 0;
+}

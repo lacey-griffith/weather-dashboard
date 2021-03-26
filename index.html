@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic.min.css"
+        integrity="sha512-LeCmts7kEi09nKc+DwGJqDV+dNQi/W8/qb0oUSsBLzTYiBwxj0KBlAow2//jV7jwEHwSCPShRN2+IWwWcn1x7Q=="
+        crossorigin="anonymous" />
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <title>Weather Dashboard</title>
+</head>
+<header class="hero">
+    Weather Dashboard
+</header>
+
+<body>
+    <div class="container">
+        <!-- Search Col -->
+        <div class="row parent border">
+            <div class="col-4 column bg-light city-container">
+                <div class="row col-12 p-4">
+                    <form id="zipcode-form" class="card-body">
+                        <label class="form-label gx-5" for="zipcode">Search by Zipcode:</label>
+                        <input name="zipcode" id="zipcode" type="text" class="form-input" />
+                        <button type="submit" class="btn btn-sm btn-secondary">?</button>
+                    </form>
+                </div>
+
+                <div class="column mx-4" id="search-history">
+                </div>
+            </div>
+            <!-- Rows -->
+            <div class="col-8 column">
+                <!-- City and Date -->
+                <div class="row align-bottom p-3">
+                    <h1 class="h2" id="city-name"></h1>
+                    <h2 class="h2" id="current-date">
+                        </h4>
+                </div>
+
+                <div class="row ps-3">
+                    <p class="info-display" id="current-temp"></p>
+                </div>
+                <div class="row">
+                    <p class="info-display" id="feels-like"></p>
+                </div>
+                <div class="row">
+                    <p class="info-display" id="humidity"></p>
+                </div>
+                <div class="row">
+                    <p class="info-display" id="wind-speed"></p>
+                </div>
+                <div class="row">
+                    <p class="info-display" id="uv-index">UV Index:</p>
+                </div>
+
+                <div class="row p-3 justify-content-center" id="forecast-container">
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
+    integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
+    crossorigin="anonymous"></script>
+<script src="./assets/js/script.js"></script>
+
+</html>
