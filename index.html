@@ -36,10 +36,10 @@
             <!-- Rows -->
             <div class="col-8 column">
                 <!-- City and Date -->
-                <div class="row align-bottom p-3">
-                    <h1 class="h2" id="city-name"></h1>
-                    <h2 class="h2" id="current-date">
-                        </h4>
+                <div class="row align-center p-3">
+                    <h2 class ="city-header" id="city-name"></h2>
+                    <h3 class="city-header" id="current-day"></h3>
+                    <img id="weather-icon"/>
                 </div>
 
                 <div class="row ps-3">
@@ -58,7 +58,37 @@
                     <p class="info-display" id="uv-index">UV Index:</p>
                 </div>
 
-                <div class="row p-3 justify-content-center" id="forecast-container">
+                <div class="row p-3 justify-content-center text-center" id="forecast-container">
+                    <div class="column col-2" id="day1">
+                        <h2 class="forecast-header" id="day1date"></h2>
+                        <p class="forecast-info" id="day1temp"></p>
+                        <p class="forecast-info" id="day1humidity"></p>
+                        <img id="day1-icon">
+                    </div>
+                    <div class="column col-2" id="day2">
+                        <h2 class="forecast-header" id="day2date"></h2>
+                        <p class="forecast-info" id="day2temp"></p>
+                        <p class="forecast-info" id="day2humidity"></p>
+                        <img id="day2-icon">
+                    </div>
+                    <div class="column col-2" id="day3">
+                        <h2 class="forecast-header" id="day3date"></h2>
+                        <p class="forecast-info" id="day3temp"></p>
+                        <p class="forecast-info" id="day3humidity"></p>
+                        <img id="day3-icon">
+                    </div>
+                    <div class="column col-2" id="day4">
+                        <h2 class="forecast-header" id="day4date"></h2>
+                        <p class="forecast-info" id="day4temp"></p>
+                        <p class="forecast-info" id="day4humidity"></p>
+                        <img id="day4-icon">
+                    </div>
+                    <div class="column col-2" id="day5">
+                        <h2 class="forecast-header" id="day5date"></h2>
+                        <p class="forecast-info" id="day5temp"></p>
+                        <p class="forecast-info" id="day5humidity"></p>
+                        <img id="day5-icon">
+                    </div>
                 </div>
             </div>
         </div>

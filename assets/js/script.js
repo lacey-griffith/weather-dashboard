@@ -15,8 +15,6 @@
 var zipcodeFormEl = document.querySelector("#zipcode-form");
 var zipcodeInputEl = document.querySelector("#zipcode");
 
-var forecastContainerEl = document.querySelector("#forecast-container");
-
 var searchContainerEl = document.querySelector("#search-history")
 var searchHistory = [];
 var currentSearch = 0;
@@ -28,11 +26,15 @@ function getWeather(zipcode) {
             return response.json();
         })
         .then(function (response) {
-            var cityName = document.querySelector("#city-name");
+            // console.log(response)
+            var cityName = document.querySelector("#city-name")
             cityName.textContent = response.name;
 
-            var currentDay = document.querySelector("#current-date");
+            var currentDay = document.querySelector("#current-day")
             currentDay.textContent = moment().format("[(]MM[/]D[/]YYYY[)]")
+
+            var weatherIcon = document.querySelector("#weather-icon")
+            weatherIcon.setAttribute("src", 'http://openweathermap.org/img/wn/'+response.weather[0].icon+'.png');
 
             var temp = document.querySelector("#current-temp")
             temp.textContent = "Temperature: " + response.main.temp + "°F";
@@ -79,105 +81,101 @@ function getForecast(zipcode) {
     })
     .then(function(response){
         //day 1 forecast
-        var day1El = document.createElement("div")
+        var day1El = document.querySelector("#day1")
         day1El.className = "column col-2 forecast-container"
 
-        var day1Header = document.createElement("h2")
+        var day1Header = document.querySelector("#day1date")
         day1Header.className = "forecast-header";
         day1Header.textContent = moment().add(1,"days").format("[(]MM[/]D[/]YYYY[)]");
-        day1El.appendChild(day1Header);
 
-        var day1Temp = document.createElement("p")
+        var day1Temp = document.querySelector("#day1temp")
         day1Temp.className = "forecast-info"
         day1Temp.textContent = "Temp: " + Math.floor(response.list[3].main.temp)  + "°F";
-        day1El.appendChild(day1Temp);
 
-        var day1Humidity = document.createElement("p")
+        var day1Humidity = document.querySelector("#day1humidity")
         day1Humidity.className = "forecast-info"
         day1Humidity.textContent = "Humidity: " + response.list[3].main.humidity +"%";
-        day1El.appendChild(day1Humidity);
+
+        var day1Icon = document.querySelector("#day1-icon")
+        day1Icon.setAttribute("src", 'http://openweathermap.org/img/wn/'+response.list[3].weather[0].icon+'.png')
 
         // day 2 forecast
-        var day2El = document.createElement("div")
+        var day2El = document.querySelector("#day2")
         day2El.className = "column col-2 forecast-container"
 
-        var day2Header = document.createElement("h2")
+        var day2Header = document.querySelector("#day2date")
         day2Header.className = "forecast-header";
         day2Header.textContent = moment().add(2,"days").format("[(]MM[/]D[/]YYYY[)]");
-        day2El.appendChild(day2Header);
 
-        var day2Temp = document.createElement("p")
+        var day2Temp = document.querySelector("#day2temp")
         day2Temp.className = "forecast-info"
         day2Temp.textContent = "Temp: " + Math.floor(response.list[11].main.temp)  + "°F";
-        day2El.appendChild(day2Temp);
 
-        var day2Humidity = document.createElement("p")
+        var day2Humidity = document.querySelector("#day2humidity")
         day2Humidity.className = "forecast-info"
         day2Humidity.textContent = "Humidity: " + response.list[11].main.humidity +"%";
-        day2El.appendChild(day2Humidity);
+
+        var day2Icon = document.querySelector("#day2-icon")
+        day2Icon.setAttribute("src", 'http://openweathermap.org/img/wn/'+response.list[11].weather[0].icon+'.png')
 
         // day 3 forecast
-        var day3El = document.createElement("div")
+        var day3El = document.querySelector("#day3")
         day3El.className = "column col-2 forecast-container"
 
-        var day3Header = document.createElement("h2")
+        var day3Header = document.querySelector("#day3date")
         day3Header.className = "forecast-header";
         day3Header.textContent = moment().add(3,"days").format("[(]MM[/]D[/]YYYY[)]");
-        day3El.appendChild(day3Header);
 
-        var day3Temp = document.createElement("p")
+        var day3Temp = document.querySelector("#day3temp")
         day3Temp.className = "forecast-info"
         day3Temp.textContent = "Temp: " + Math.floor(response.list[19].main.temp)  + "°F";
-        day3El.appendChild(day3Temp);
 
-        var day3Humidity = document.createElement("p")
+        var day3Humidity = document.querySelector("#day3humidity")
         day3Humidity.className = "forecast-info"
         day3Humidity.textContent = "Humidity: " + response.list[19].main.humidity +"%";
-        day3El.appendChild(day3Humidity);
+
+        var day3Icon = document.querySelector("#day3-icon")
+        day3Icon.setAttribute("src", 'http://openweathermap.org/img/wn/'+response.list[19].weather[0].icon+'.png')
 
         // day 4 forecast
-        var day4El = document.createElement("div")
+        var day4El = document.querySelector("#day4")
         day4El.className = "column col-2 forecast-container"
 
-        var day4Header = document.createElement("h2")
+        var day4Header = document.querySelector("#day4date")
         day4Header.className = "forecast-header";
         day4Header.textContent = moment().add(4,"days").format("[(]MM[/]D[/]YYYY[)]");
-        day4El.appendChild(day4Header);
 
-        var day4Temp = document.createElement("p")
+        var day4Temp = document.querySelector("#day4temp")
         day4Temp.className = "forecast-info"
         day4Temp.textContent = "Temp: " + Math.floor(response.list[27].main.temp)  + "°F";
-        day4El.appendChild(day4Temp);
 
-        var day4Humidity = document.createElement("p")
+        var day4Humidity = document.querySelector("#day4humidity")
         day4Humidity.className = "forecast-info"
         day4Humidity.textContent = "Humidity: " + response.list[27].main.humidity +"%";
-        day4El.appendChild(day4Humidity);
+
+        var day4Icon = document.querySelector("#day4-icon")
+        day4Icon.setAttribute("src", 'http://openweathermap.org/img/wn/'+response.list[27].weather[0].icon+'.png')
 
         //day 5 forecast
-        var day5El = document.createElement("div")
+        var day5El = document.querySelector("#day5")
         day5El.className = "column col-2 forecast-container"
 
-        var day5Header = document.createElement("h2")
+        var day5Header = document.querySelector("#day5date")
         day5Header.className = "forecast-header";
         day5Header.textContent = moment().add(5,"days").format("[(]MM[/]D[/]YYYY[)]");
-        day5El.appendChild(day5Header);
 
-        var day5Temp = document.createElement("p")
+        var day5Temp = document.querySelector("#day5temp")
         day5Temp.className = "forecast-info"
         day5Temp.textContent = "Temp: " + Math.floor(response.list[35].main.temp)  + "°F";
-        day5El.appendChild(day5Temp);
 
-        var day5Humidity = document.createElement("p")
+        var day5Humidity = document.querySelector("#day5humidity")
         day5Humidity.className = "forecast-info"
         day5Humidity.textContent = "Humidity: " + response.list[35].main.humidity +"%";
-        day5El.appendChild(day5Humidity);
 
-        forecastContainerEl.appendChild(day1El);
-        forecastContainerEl.appendChild(day2El);
-        forecastContainerEl.appendChild(day3El);
-        forecastContainerEl.appendChild(day4El);
-        forecastContainerEl.appendChild(day5El);
+        var day5Icon = document.querySelector("#day5-icon")
+        day5Icon.setAttribute("src", 'http://openweathermap.org/img/wn/'+response.list[35].weather[0].icon+'.png')
+
+        console.log(response.list[3])
     })
 }
 

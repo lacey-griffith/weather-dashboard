@@ -13,7 +13,10 @@ header {
 .city-container {
     padding: 0 2px 5px 0;
 }
-
+.city-header {
+    padding: 0;
+    margin: 7px 0 0 0 ;
+}
 .info-display {
     margin: 0 0 5px 16px;
     font-size: larger;
@@ -21,10 +24,11 @@ header {
 .forecast-container {
     background-color: lightskyblue;
     justify-content: center;
-    height: 200px;
     border-radius: 10px;
     margin: 10px 3px 0 3px;
-    border: 1px solid darkblue;
+    border: black;
+    padding: 10px 0;
+    height: 200px;
 }
 .forecast-header {
     font-size: 16px;
