@@ -4,7 +4,15 @@ header {
     font-weight: bold;
     text-align: center;
 }
-
+#search-button {
+    width: 15%;
+    padding: 2px;
+    margin-left: 2px;
+}
+#reset-button {
+    width: 15%;
+    padding: 2px;
+}
 .city-button {
     width: 100%;
     text-align: left;
@@ -31,11 +39,24 @@ header {
     height: 200px;
 }
 .forecast-header {
-    font-size: 16px;
+    font-size: 1rem;
     margin: 4px 0 8px 0;
 }
 .forecast-info {
     font-size: 13px;
     text-align: center;
     margin: 2px 0 0 0;
+}
+
+.uv-danger {
+    color: darkred;
+    font-weight: bold;
+}
+.uv-warning {
+    color: darkgoldenrod;
+    font-weight: bold;
+}
+.uv-safe {
+    color: darkgreen;
+    font-weight: bold;
 }

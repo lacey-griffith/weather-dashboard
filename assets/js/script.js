@@ -12,6 +12,7 @@
 
 
 
+var clearHistoryBtn = document.querySelector("#reset-button")
 var zipcodeFormEl = document.querySelector("#zipcode-form");
 var zipcodeInputEl = document.querySelector("#zipcode");
 
@@ -19,14 +20,15 @@ var searchContainerEl = document.querySelector("#search-history")
 var searchHistory = [];
 var currentSearch = 0;
 
+
 function getWeather(zipcode) {
     var weatherAPI = "https://api.openweathermap.org/data/2.5/weather?zip=" + zipcode + ",us&units=imperial&appid=0444a9f6e39557fee6a4f8463a2448cd";
 
     fetch(weatherAPI).then(function (response) {
             return response.json();
         })
-        .then(function (response) {
-            // console.log(response)
+        .then(function(response) {
+            //console.log(response)
             var cityName = document.querySelector("#city-name")
             cityName.textContent = response.name;
 
@@ -50,11 +52,13 @@ function getWeather(zipcode) {
             var searchObj = [{
                 city: response.name,
                 searchID: currentSearch,
-                zipcode: zipcode
+                zipcode: zipcode,
+                lat: response.coord.lat,
+                long: response.coord.lon
             }]
             searchHistory.push(searchObj)
+            //console.log(searchHistory)
             localStorage.setItem("searches", JSON.stringify(searchHistory))
-
 
             var buttonContainer = document.createElement("div")
             buttonContainer.className = "row"
@@ -64,13 +68,20 @@ function getWeather(zipcode) {
             historyButton.id = "history-" + currentSearch
             historyButton.textContent = response.name
             historyButton.value = zipcode
-            console.log(historyButton)
 
             buttonContainer.appendChild(historyButton);
             searchContainerEl.appendChild(buttonContainer);
 
+            var lat = response.coord.lat
+            var lon = response.coord.lon
+
+            console.log(response)
+            console.log(lat,lon)
+
+            getUVindex(lat,lon)
         })
     currentSearch++
+    //console.log(lat,lon)
 };
 
 function getForecast(zipcode) {
@@ -82,7 +93,7 @@ function getForecast(zipcode) {
     .then(function(response){
         //day 1 forecast
         var day1El = document.querySelector("#day1")
-        day1El.className = "column col-2 forecast-container"
+        day1El.className = "column col forecast-container"
 
         var day1Header = document.querySelector("#day1date")
         day1Header.className = "forecast-header";
@@ -101,7 +112,7 @@ function getForecast(zipcode) {
 
         // day 2 forecast
         var day2El = document.querySelector("#day2")
-        day2El.className = "column col-2 forecast-container"
+        day2El.className = "column col forecast-container"
 
         var day2Header = document.querySelector("#day2date")
         day2Header.className = "forecast-header";
@@ -120,7 +131,7 @@ function getForecast(zipcode) {
 
         // day 3 forecast
         var day3El = document.querySelector("#day3")
-        day3El.className = "column col-2 forecast-container"
+        day3El.className = "column col forecast-container"
 
         var day3Header = document.querySelector("#day3date")
         day3Header.className = "forecast-header";
@@ -139,7 +150,7 @@ function getForecast(zipcode) {
 
         // day 4 forecast
         var day4El = document.querySelector("#day4")
-        day4El.className = "column col-2 forecast-container"
+        day4El.className = "column col forecast-container"
 
         var day4Header = document.querySelector("#day4date")
         day4Header.className = "forecast-header";
@@ -158,7 +169,7 @@ function getForecast(zipcode) {
 
         //day 5 forecast
         var day5El = document.querySelector("#day5")
-        day5El.className = "column col-2 forecast-container"
+        day5El.className = "column col forecast-container"
 
         var day5Header = document.querySelector("#day5date")
         day5Header.className = "forecast-header";
@@ -175,26 +186,32 @@ function getForecast(zipcode) {
         var day5Icon = document.querySelector("#day5-icon")
         day5Icon.setAttribute("src", 'http://openweathermap.org/img/wn/'+response.list[35].weather[0].icon+'.png')
 
-        console.log(response.list[3])
+        //console.log(response.list[3])
     })
 }
 
 function loadSearchHistory() {
     searchHistory = localStorage.getItem("searches")
-    console.log(searchHistory);
+    //console.log(searchHistory);
     if (!searchHistory || searchHistory === null) {
         searchHistory = [];
         return false;
     }
     searchHistory = JSON.parse(searchHistory)
-    console.log(searchHistory);
+    //console.log(searchHistory);
     displaySearches();
+}
+
+function clearSearchHistory() {
+    searchHistory = [];
+    localStorage.clear();
+    location.reload();
 }
 
 function displaySearches() {
     currentSearch = 0;
     for (var i = 0; i < searchHistory.length; i++) {
-        console.log(searchHistory[currentSearch][0].city)
+        //console.log(searchHistory[currentSearch][0].city)
 
         var buttonContainer = document.createElement("div")
         buttonContainer.className = "row"
@@ -225,6 +242,35 @@ function handleSubmit(event) {
     }
 };
 
+function getUVindex(lat,lon) {
+    console.log(lat,lon)
+    fetch("https://api.weatherbit.io/v2.0/current?lat="+lat+"&lon="+lon+"&key=8079923170d64d1e815aaed58f097dc4&include=minutely")
+    .then(function(response){
+        return response.json();
+    })
+    .then(function(response){
+        //console.log(response);
+        var uvIndex = document.querySelector("#uv-index")
+        uvIndex.textContent = "UV Index: " + Math.floor(response.data[0].uv)
+        uvIndex.classList ="info-display"
+
+        var uvIndexData = Math.floor(response.data[0].uv);
+        //console.log(uvIndexData)
+
+        if (uvIndexData <= 2){
+            uvIndex.classList = "info-display uv-safe";
+            console.log(uvIndexData)
+        }
+        if (uvIndexData >= 3){
+            uvIndex.classList = "info-display uv-warning";
+        }
+        if (uvIndexData >= 6) {
+            uvIndex.classList = "info-display uv-danger";
+        }
+    })
+}
+
 zipcodeFormEl.addEventListener("submit", handleSubmit);
+clearHistoryBtn.addEventListener("click", clearSearchHistory)
 
 loadSearchHistory();
