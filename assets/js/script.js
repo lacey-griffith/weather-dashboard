@@ -11,7 +11,6 @@
 // THEN I am again presented with current and future conditions for that city
 
 
-
 var clearHistoryBtn = document.querySelector("#reset-button")
 var zipcodeFormEl = document.querySelector("#zipcode-form");
 var zipcodeInputEl = document.querySelector("#zipcode");
@@ -28,7 +27,6 @@ function getWeather(zipcode) {
             return response.json();
         })
         .then(function(response) {
-            //console.log(response)
             var cityName = document.querySelector("#city-name")
             cityName.textContent = response.name;
 
@@ -57,7 +55,6 @@ function getWeather(zipcode) {
                 long: response.coord.lon
             }]
             searchHistory.push(searchObj)
-            //console.log(searchHistory)
             localStorage.setItem("searches", JSON.stringify(searchHistory))
 
             var buttonContainer = document.createElement("div")
@@ -74,14 +71,9 @@ function getWeather(zipcode) {
 
             var lat = response.coord.lat
             var lon = response.coord.lon
-
-            console.log(response)
-            console.log(lat,lon)
-
             getUVindex(lat,lon)
         })
     currentSearch++
-    //console.log(lat,lon)
 };
 
 function getForecast(zipcode) {
@@ -97,7 +89,7 @@ function getForecast(zipcode) {
 
         var day1Header = document.querySelector("#day1date")
         day1Header.className = "forecast-header";
-        day1Header.textContent = moment().add(1,"days").format("[(]MM[/]D[/]YYYY[)]");
+        day1Header.textContent = moment().add(1,"days").format("MM[/]D[/]YYYY");
 
         var day1Temp = document.querySelector("#day1temp")
         day1Temp.className = "forecast-info"
@@ -116,7 +108,7 @@ function getForecast(zipcode) {
 
         var day2Header = document.querySelector("#day2date")
         day2Header.className = "forecast-header";
-        day2Header.textContent = moment().add(2,"days").format("[(]MM[/]D[/]YYYY[)]");
+        day2Header.textContent = moment().add(2,"days").format("MM[/]D[/]YYYY");
 
         var day2Temp = document.querySelector("#day2temp")
         day2Temp.className = "forecast-info"
@@ -135,7 +127,7 @@ function getForecast(zipcode) {
 
         var day3Header = document.querySelector("#day3date")
         day3Header.className = "forecast-header";
-        day3Header.textContent = moment().add(3,"days").format("[(]MM[/]D[/]YYYY[)]");
+        day3Header.textContent = moment().add(3,"days").format("MM[/]D[/]YYYY");
 
         var day3Temp = document.querySelector("#day3temp")
         day3Temp.className = "forecast-info"
@@ -154,7 +146,7 @@ function getForecast(zipcode) {
 
         var day4Header = document.querySelector("#day4date")
         day4Header.className = "forecast-header";
-        day4Header.textContent = moment().add(4,"days").format("[(]MM[/]D[/]YYYY[)]");
+        day4Header.textContent = moment().add(4,"days").format("MM[/]D[/]YYYY");
 
         var day4Temp = document.querySelector("#day4temp")
         day4Temp.className = "forecast-info"
@@ -173,7 +165,7 @@ function getForecast(zipcode) {
 
         var day5Header = document.querySelector("#day5date")
         day5Header.className = "forecast-header";
-        day5Header.textContent = moment().add(5,"days").format("[(]MM[/]D[/]YYYY[)]");
+        day5Header.textContent = moment().add(5,"days").format("MM[/]D[/]YYYY");
 
         var day5Temp = document.querySelector("#day5temp")
         day5Temp.className = "forecast-info"
@@ -185,20 +177,16 @@ function getForecast(zipcode) {
 
         var day5Icon = document.querySelector("#day5-icon")
         day5Icon.setAttribute("src", 'http://openweathermap.org/img/wn/'+response.list[35].weather[0].icon+'.png')
-
-        //console.log(response.list[3])
     })
 }
 
 function loadSearchHistory() {
     searchHistory = localStorage.getItem("searches")
-    //console.log(searchHistory);
     if (!searchHistory || searchHistory === null) {
         searchHistory = [];
         return false;
     }
     searchHistory = JSON.parse(searchHistory)
-    //console.log(searchHistory);
     displaySearches();
 }
 
@@ -211,7 +199,6 @@ function clearSearchHistory() {
 function displaySearches() {
     currentSearch = 0;
     for (var i = 0; i < searchHistory.length; i++) {
-        //console.log(searchHistory[currentSearch][0].city)
 
         var buttonContainer = document.createElement("div")
         buttonContainer.className = "row"
@@ -231,7 +218,7 @@ function displaySearches() {
 
 function handleSubmit(event) {
     event.preventDefault();
-    var zipcode = zipcodeInputEl.value.trim();
+    var zipcode = Number(zipcodeInputEl.value.trim());
 
     if (zipcode) {
         getWeather(zipcode);
@@ -249,13 +236,11 @@ function getUVindex(lat,lon) {
         return response.json();
     })
     .then(function(response){
-        //console.log(response);
         var uvIndex = document.querySelector("#uv-index")
         uvIndex.textContent = "UV Index: " + Math.floor(response.data[0].uv)
         uvIndex.classList ="info-display"
 
         var uvIndexData = Math.floor(response.data[0].uv);
-        //console.log(uvIndexData)
 
         if (uvIndexData <= 2){
             uvIndex.classList = "info-display uv-safe";
