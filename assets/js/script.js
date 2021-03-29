@@ -203,11 +203,11 @@ function displaySearches() {
         var buttonContainer = document.createElement("div")
         buttonContainer.className = "row"
 
-        var historyButton = document.createElement("button")
+        var historyButton = document.createElement("button");
         historyButton.className = "btn bg-white border city-button"
         historyButton.id = "history-" + currentSearch
         historyButton.textContent = searchHistory[currentSearch][0].city
-        historyButton.data = searchHistory[currentSearch][0].zipcode
+        historyButton.dataset = searchHistory[currentSearch][0].zipcode
 
         buttonContainer.appendChild(historyButton);
         searchContainerEl.appendChild(buttonContainer);
@@ -230,7 +230,6 @@ function handleSubmit(event) {
 };
 
 function getUVindex(lat,lon) {
-    console.log(lat,lon)
     fetch("https://api.weatherbit.io/v2.0/current?lat="+lat+"&lon="+lon+"&key=8079923170d64d1e815aaed58f097dc4&include=minutely")
     .then(function(response){
         return response.json();
@@ -244,7 +243,6 @@ function getUVindex(lat,lon) {
 
         if (uvIndexData <= 2){
             uvIndex.classList = "info-display uv-safe";
-            console.log(uvIndexData)
         }
         if (uvIndexData >= 3){
             uvIndex.classList = "info-display uv-warning";
@@ -256,6 +254,6 @@ function getUVindex(lat,lon) {
 }
 
 zipcodeFormEl.addEventListener("submit", handleSubmit);
-clearHistoryBtn.addEventListener("click", clearSearchHistory)
+clearHistoryBtn.addEventListener("click", clearSearchHistory);
 
 loadSearchHistory();
