@@ -209,9 +209,6 @@ function displaySearches() {
         historyButton.textContent = searchHistory[currentSearch][0].city
         historyButton.data = searchHistory[currentSearch][0].zipcode
 
-        historyButton.addEventListener("click", getWeather(historyButton.data));
-        console.log(historyButton.data)
-
         buttonContainer.appendChild(historyButton);
         searchContainerEl.appendChild(buttonContainer);
 
