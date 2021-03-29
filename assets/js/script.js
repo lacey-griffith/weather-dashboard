@@ -14,6 +14,7 @@
 var clearHistoryBtn = document.querySelector("#reset-button")
 var zipcodeFormEl = document.querySelector("#zipcode-form");
 var zipcodeInputEl = document.querySelector("#zipcode");
+var historyButton = document.createElement("button");
 
 var searchContainerEl = document.querySelector("#search-history")
 var searchHistory = [];
@@ -61,7 +62,8 @@ function getWeather(zipcode) {
             buttonContainer.className = "row"
 
             var historyButton = document.createElement("button")
-            historyButton.className = "btn bg-white border city-button"
+            //history button class add to match for event listener
+            historyButton.className = "btn bg-white border history-button city-button"
             historyButton.id = "history-" + currentSearch
             historyButton.textContent = response.name
             historyButton.value = zipcode
@@ -204,7 +206,8 @@ function displaySearches() {
         buttonContainer.className = "row"
 
         var historyButton = document.createElement("button");
-        historyButton.className = "btn bg-white border city-button"
+        //history button class add to match for event listener
+        historyButton.className = "btn bg-white border history-button city-button"
         historyButton.id = "history-" + currentSearch
         historyButton.textContent = searchHistory[currentSearch][0].city
         historyButton.dataset = searchHistory[currentSearch][0].zipcode
@@ -253,7 +256,15 @@ function getUVindex(lat,lon) {
     })
 }
 
+// add matches to match history button class for listener
+function historyClick() {
+    if(classList.matches("history-button")){
+        addEventListener("click", console.log("clicked"));
+    }
+}
+
 zipcodeFormEl.addEventListener("submit", handleSubmit);
 clearHistoryBtn.addEventListener("click", clearSearchHistory);
+
 
 loadSearchHistory();
