@@ -207,8 +207,10 @@ function displaySearches() {
         historyButton.className = "btn bg-white border city-button"
         historyButton.id = "history-" + currentSearch
         historyButton.textContent = searchHistory[currentSearch][0].city
-        historyButton.value = searchHistory[currentSearch][0].zipcode
-        historyButton.onclick(alert("clicked!"));
+        historyButton.data = searchHistory[currentSearch][0].zipcode
+
+        historyButton.addEventListener("click", getWeather(historyButton.data));
+        console.log(historyButton.data)
 
         buttonContainer.appendChild(historyButton);
         searchContainerEl.appendChild(buttonContainer);
